@@ -1,0 +1,68 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Upload Medical Records</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href={% static "./style.css" %} />
+  </head>
+  <body>
+    <!-- partial:index.partial.html -->
+    <div class="box-form">
+      <div class="left">
+        <div class="overlay">
+          <img src={% static "img.jpg" %} style="width: 650px; height: 250x" />
+          <h1>Medical Records.</h1>
+          <p>
+            "Medicine cure diseases, but only doctors can cure patients." -Carl
+            Jung
+          </p>
+        </div>
+      </div>
+
+      <div class="right">
+        <h5>Upload</h5>
+        <h5>Medical</h5>
+        <h5>Records</h5>
+
+        <div class="inputs">
+          <h2>Enter the details and upload the document below.</h2>
+          {% comment %}
+          <input type="text" placeholder="Doctor's Name" /> {% endcomment %}
+          <br />
+          {% comment %}
+          <form action="/action_page.php">
+            <input type="file" id="myFile" name="filename" />
+            <input type="submit" />
+          </form>
+          {% endcomment %}
+		  <table border ="1">
+		  {% csrf_token %} {% for choice in documents%}
+		  <tr>
+			
+            <form method ="POST" action="approve/{{ choice.id}}/">
+			
+			<td>{{choice.document}}</td>
+			<td><input name="approval_rec" value="{{choice.approval_rec}}" ></input></td>
+			<td> {% csrf_token %}<button type="submit"href="approve/{{ choice.id}}"> update</button></td>
+			</form>
+		</tr>
+		{% endfor %}
+		  </table>
+        </div>
+      </div>
+    </div>
+    <!-- partial -->
+  </body>
+</html>
